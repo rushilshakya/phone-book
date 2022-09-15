@@ -1,5 +1,5 @@
 # fullstackopen using CI CD
 
-The online application is available at https://morning-citadel-67974.herokuapp.com
+The online application is available at https://phonebookbyrushil.herokuapp.com/
 
-The api is available at https://morning-citadel-67974.herokuapp.com/api/persons/
+The api is available at https://phonebookbyrushil.herokuapp.com/api/persons/
