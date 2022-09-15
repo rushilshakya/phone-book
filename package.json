@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "dev:client": "parcel -p 3002 client/index.html",
-    "build:client": "NODE_ENV=build parcel build --no-cache --no-source-maps --dist-dir ./public client/index.html",
+    "build:client": "NODE_ENV=build parcel build --no-cache --no-source-maps client/index.html",
     "start:server": "node server/index.js",
     "dev:server": "nodemon server/index.js",
     "eslint": "eslint './**/*.{js,jsx}'",

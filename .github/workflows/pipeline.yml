@@ -72,6 +72,6 @@ jobs:
         if: success()
         with:
           severity: info
-          text: New version of Pokedex deployed
+          text: New version of phonebookbyrushil deployed
           description: to https://phonebookbyrushil.herokuapp.com/ by rshakya
           webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}

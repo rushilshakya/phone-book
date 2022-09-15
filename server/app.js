@@ -22,7 +22,7 @@ mongoose
 app.use(cors());
 app.use(express.json());
 app.use(middleware.morganned);
-app.use(express.static("public"));
+app.use(express.static("dist"));
 app.use("/api/persons", personsRouter);
 app.get("/health", (req, res) => {
   res.send("ok");
