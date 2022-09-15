@@ -3,13 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "node server/index.js",
-    "dev": "nodemon server/index.js",
+    "dev:client": "parcel -p 3002 client/index.html",
+    "build:client": "NODE_ENV=build parcel build --no-cache --no-source-maps --dist-dir ./public client/index.html",
+    "start:server": "node server/index.js",
+    "dev:server": "nodemon server/index.js",
     "lint": "eslint .",
-    "prettier": "prettier .",
-    "deploy-heroku": "git push heroku main",
-    "build:ui": "rm -rf public && rm -rf ../fullstackopen-rushil/.parcel-cache && NODE_ENV=build parcel build --no-cache --no-source-maps --dist-dir ./public ../fullstackopen-rushil/part2/phonebook/index.html",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prettier": "prettier ."
   },
   "keywords": [],
   "author": "",
@@ -23,15 +22,16 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "nodemon": "^2.0.19",
     "parcel": "^2.6.2",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "process": "^0.11.10"
   },
   "dependencies": {
+    "axios": "^0.27.2",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
     "mongoose": "^6.4.3",
     "morgan": "^1.10.0",
-    "axios": "^0.27.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
