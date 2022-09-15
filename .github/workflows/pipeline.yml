@@ -22,7 +22,7 @@ jobs:
         run: npm run eslint
       - name: run build
         id: build
-        run: npm run build:client
+        run: npm run build
       - name: notify build failure
         uses: rjstone/discord-webhook-notify@v1
         if: ${{ failure() && steps.build.conclusion == 'failure' }}
