@@ -12,6 +12,7 @@ const ShowPersons = ({ persons, setPersons, filter, createMessage }) => {
     if (confirm(`deleting ${person.name}`)) {
       personService
         .remove(person.id)
+        // eslint-disable-next-line no-unused-vars
         .then((response) => {
           setPersons(persons.filter((curPerson) => curPerson.id !== person.id));
           createMessage(

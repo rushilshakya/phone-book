@@ -24,6 +24,12 @@ app.use(express.json());
 app.use(middleware.morganned);
 app.use(express.static("public"));
 app.use("/api/persons", personsRouter);
+app.get("/health", (req, res) => {
+  res.send("ok");
+});
+app.get("/version", (req, res) => {
+  res.send("0.0.1"); // change this string to ensure a new version deployed
+});
 app.use(middleware.unknownEndpoint);
 
 // this has to be the last loaded middleware.

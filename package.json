@@ -7,7 +7,7 @@
     "build:client": "NODE_ENV=build parcel build --no-cache --no-source-maps --dist-dir ./public client/index.html",
     "start:server": "node server/index.js",
     "dev:server": "nodemon server/index.js",
-    "lint": "eslint .",
+    "eslint": "eslint './**/*.{js,jsx}'",
     "prettier": "prettier ."
   },
   "keywords": [],

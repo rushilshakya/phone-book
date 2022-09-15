@@ -1,0 +1,77 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+      - name: npm install
+        run: npm ci
+      - name: run linting
+        run: npm run eslint
+      - name: run build
+        id: build
+        run: npm run build:client
+      - name: notify build failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() && steps.build.conclusion == 'failure' }}
+        with:
+          severity: error
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          text: Build failed!
+          details: Build Failed!
+      - name: heroku deploy
+        id: deploy
+        uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+        if: ${{ github.event_name == 'push' }}
+        with:
+          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+          heroku_app_name: "phonebookbyrushil" #Must be unique in Heroku
+          heroku_email: "rushil.shakya@gmail.com"
+          healthcheck: "https://phonebookbyrushil.herokuapp.com/health"
+          checkstring: "ok"
+          delay: 5
+          rollbackonhealthcheckfailed: true
+      - name: notify deploy failure
+        uses: rjstone/discord-webhook-notify@v1
+        if: ${{ failure() && steps.deploy.conclusion == 'failure' }}
+        with:
+          severity: error
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
+          text: Deploy failed!
+          details: Deploy Failed!
+
+  tag_release:
+    needs: [simple_deployment_pipeline]
+    runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'push' }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: "0"
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@1.36.0
+        if: ${{ !contains(env.JOIN_COMMIT_MESSAGES, '#skip') }}
+        env:
+          JOIN_COMMIT_MESSAGES: ${{ join(github.event.commits.*.message) }}
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          DEFAULT_BUMP: patch
+      - name: Successful deployment notification
+        uses: rjstone/discord-webhook-notify@v1
+        if: success()
+        with:
+          severity: info
+          text: New version of Pokedex deployed
+          description: to https://phonebookbyrushil.herokuapp.com/ by rshakya
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK }}
