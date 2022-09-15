@@ -1,0 +1,35 @@
+{
+  "name": "fullstackopen-server-rushil",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "nodemon server/index.js",
+    "lint": "eslint .",
+    "prettier": "prettier .",
+    "deploy-heroku": "git push heroku main",
+    "build:ui": "rm -rf public && rm -rf ../fullstackopen-rushil/.parcel-cache && NODE_ENV=build parcel build --no-cache --no-source-maps --dist-dir ./public ../fullstackopen-rushil/part2/phonebook/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.19.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.0",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^2.0.19",
+    "parcel": "^2.6.2",
+    "prettier": "^2.7.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.3",
+    "morgan": "^1.10.0"
+  }
+}
